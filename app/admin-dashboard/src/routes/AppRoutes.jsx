@@ -10,12 +10,18 @@ import LiveBusMap from "@/pages/LiveBusMap";
 import ComplaintsManagement from "@/pages/ComplaintsManagement";
 import Settings from "@/pages/Settings";
 import ReportsAnalytics from "@/pages/ReportsAnalytics";
+import ForgotPasswordEmail from "@/pages/ForgotPasswordEmail";
+import ForgotPasswordOTPVerification from "@/pages/ForgotPasswordOTPVerification";
+import ResetPassword from "@/pages/ResetPassword";
 
 const AppRoutes = () => {
   return (
     <Routes>
       {/* Login is outside the dashboard layout */}
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/forgotpasswordemail" element={<ForgotPasswordEmail />} />
+      <Route path="/forgotpasswordotpverification" element={<ForgotPasswordOTPVerification />} />
+      <Route path="/resetpassword" element={<ResetPassword />} />
 
       {/* Dashboard Layout with Outlet */}
       <Route path="/" element={<Dashboard />}>
