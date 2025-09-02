@@ -1,28 +1,36 @@
 const jwtService = require("../services/jwt.service");
-const user_model = require("../models/user_model");
+const userModel = require("../models/user.model");
+const { MESSAGES, STATUS } = require("../constants/constant");
 
 exports.authMiddleware = async (req, res, next) => {
   try {
     const token = req.signedCookies.token;
     if (!token) {
-      return res
-        .status(401)
-        .json({ message: "Unauthorized access, please login first" });
+      return createResponse(
+        res,
+        false,
+        STATUS.UNAUTHORIZED,
+        MESSAGES.UNAUTHORIZED
+      );
     }
     const decode = jwtService.verifyToken(token);
 
-    const user = await user_model.findById(decode.id);
-nodemon 
+    const user = await userModel.findById(decode.id);
+    nodemon;
     if (!user) {
-      return res.status(401).json({ message: "User not found" });
+      return createResponse(
+        res,
+        false,
+        STATUS.NOT_FOUND,
+        USER_MESSAGES.USER_NOT_FOUND
+      );
     }
     req.user = user;
     next();
   } catch (err) {
-    res.status(401).json({ message: "user unauthorized" });
+    next(err);
   }
 };
-
 
 exports.authorizeRoles = (...roles) => {
   return (req, res, next) => {

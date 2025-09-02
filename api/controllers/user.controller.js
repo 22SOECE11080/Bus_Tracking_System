@@ -54,9 +54,8 @@ const userContoller = {
         status: USER_STATUS.Inactive,
       };
 
-      const createUser = await UserModel.create(newUser);
-
-      const emailSent = await sendActivationEmail(createUser);
+      const emailSent = await sendActivationEmail(newUser);
+      
       if (!emailSent) {
         return createResponse(
           res,
@@ -65,6 +64,7 @@ const userContoller = {
           USER_MESSAGES.ACTIVATION_EMAIL_FAIL
         );
       }
+      const createUser = await UserModel.create(newUser);
 
       return createResponse(
         res,
