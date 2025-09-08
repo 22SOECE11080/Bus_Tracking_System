@@ -37,6 +37,10 @@ dependencies:
   get: ^4.6.6 # For state management + navigation
   http: ^1.1.0 # For API calls (Node backend integration)
   google_maps_flutter: ^2.5.0
+  qr_code_scanner: ^1.0.1
+  flex_color_scheme: ^8.0.2
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
 
 dev_dependencies:
   flutter_test:

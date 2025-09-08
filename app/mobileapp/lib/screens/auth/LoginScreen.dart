@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _handleLogin() {
     print("Login with: ${_emailController.text}, ${_passwordController.text}");
-    Navigator.pushReplacementNamed(context, AppRoutes.home);
+    Navigator.pushReplacementNamed(context, AppRoutes.driverHome);
   }
 
   @override
@@ -179,6 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: const Text(
                                     "LOGIN",
                                     style: TextStyle(
+                                      color: Colors.white,
                                       fontWeight: FontWeight.w700,
                                       fontSize: 16,
                                     ),
@@ -197,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: const Text(
                                   "Forgot Password?",
                                   style: TextStyle(
-                                    color: Color(0xFFC67C4E),
+                                    color: Colors.white70,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
