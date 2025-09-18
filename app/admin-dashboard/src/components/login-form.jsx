@@ -8,7 +8,7 @@ import loginAnimation from "../lottie/login-animation.json";
 
 export function LoginForm({ className, ...props }) {
   const handleGoogleLogin = () => {
-    window.open("http://localhost:3010/v1/auth/google", "_self");
+    window.open("http://localhost:3010/api/v1/public/auth/google", "_self");
   };
 
   return (
