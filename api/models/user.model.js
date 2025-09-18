@@ -29,8 +29,10 @@ const userSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "Inactive",
       enum: ["Inactive", "Active"],
+      default: function () {
+        return this.googleId ? "Active" : "Inactive";
+      },
     },
   },
   { timestamps: true }

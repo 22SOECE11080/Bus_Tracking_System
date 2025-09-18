@@ -51,7 +51,7 @@ const userContoller = {
         email,
         password: hashPassword,
         role,
-        status: USER_STATUS.Inactive,
+        status: USER_STATUS.INACTIVE,
       };
 
       const emailSent = await sendActivationEmail(newUser);
@@ -68,7 +68,7 @@ const userContoller = {
 
       return createResponse(
         res,
-        true,
+        true, 
         STATUS.CREATED,
         USER_MESSAGES.REGISTER_SUCCESS,
         { email: createUser.email }
@@ -154,7 +154,7 @@ const userContoller = {
         );
       }
       const decode = jwtService.verifyToken(token);
-      const userId = decode.id;
+      const userId = decode.id; 
       // Activate the user
       const user = await UserModel.findById(userId);
       if (!user)

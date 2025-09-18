@@ -41,8 +41,9 @@ const MESSAGES = {
 
 const USER_STATUS = {
   ACTIVE: "Active",
-  Inactive: "Inactive",
+  INACTIVE: "Inactive",
 };
+
 // User-Specific Messages
 const USER_MESSAGES = {
   REGISTER_SUCCESS:

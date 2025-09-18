@@ -1,29 +1,31 @@
-  const express = require("express");
-  const userController = require("../controllers/user.controller");
-  const router = express.Router();
-  const passport = require("passport");
+const express = require("express");
+const userController = require("../controllers/user.controller");
+const router = express.Router();
+const passport = require("passport");
 
-  router.post("/register", userController.signUp);
-  router.post("/login", userController.signIn);
+router.post("/register", userController.signUp);
+router.post("/login", userController.signIn);
 
-  router.get(
-    "/google",
-    passport.authenticate("google", { scope: ["profile", "email"] })
-  );
-
-  router.get(
-    "/google/callback",
-    passport.authenticate("google", {
-      failureRedirect: `${process.env.CLIENT_URL}/login`,
-      session: false,
-    }),
-    userController.GoogleLogin
-  );
+// Step 1: Ask Google for login
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["openid","profile", "email"] })
+);
 
 
-  router.get("/activate-account", userController.ActiveAccount);
+// Step 2: Google redirects here
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: `${process.env.CLIENT_URL}/login`,
+    session: false,
+  }),
+  userController.GoogleLogin
+);
 
-  router.post("/forgot-password", userController.forgotPassword);
+router.get("/activate-account", userController.ActiveAccount);
 
-  router.patch("/reset-password/:id/:token", userController.resetPassword);
-  module.exports = router;
+router.post("/forgot-password", userController.forgotPassword);
+
+router.patch("/reset-password/:id/:token", userController.resetPassword);
+module.exports = router;
