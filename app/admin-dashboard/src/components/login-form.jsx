@@ -1,28 +1,35 @@
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Eye, EyeOff } from "lucide-react";
 import Lottie from "lottie-react";
 import loginAnimation from "../lottie/login-animation.json";
+import { Link } from "react-router-dom";
 
 export function LoginForm({ className, ...props }) {
+  
   const handleGoogleLogin = () => {
     window.open("http://localhost:3010/api/v1/public/auth/google", "_self");
   };
-
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
-              <div className="flex flex-col items-center text-center">
+              {/* Header */}
+              <div className="flex flex-col items-center text-center gap-1">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-balance text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   Login to your Acme Inc account
                 </p>
               </div>
+
+              {/* Email */}
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -32,26 +39,60 @@ export function LoginForm({ className, ...props }) {
                   required
                 />
               </div>
+
+              {/* Password */}
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
+                  <Link
+                    to="/forgotpasswordemail"
                     className="ml-auto text-sm underline-offset-2 hover:underline"
                   >
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
-                <Input id="password" type="password" required />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    required
+                    className="pr-10"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
               </div>
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
+
+              {/* Submit */}
+              <Link to="/">
+                <Button type="submit" className="w-full">
+                  Login
+                </Button>
+              </Link>
+
+              {/* Divider */}
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">
                   Or continue with
                 </span>
               </div>
+
+              {/* Social Login */}
               <div className="grid grid-cols-3 gap-4">
                 {/* <Button variant="outline" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
