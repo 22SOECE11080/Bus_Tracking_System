@@ -15,6 +15,9 @@ import '../screens/driver/driver_qr_scanner.dart';
 
 // === Splash Screen ===
 import '../screens/splash/SplashScreen.dart';
+import '../screens/student_parnets/LiveBusTrackingScreen.dart';
+import '../screens/student_parnets/StudentHomeScreen.dart';
+import '../screens/student_parnets/StudentMainScreen.dart';
 
 class AppRoutes {
   // === Auth Routes ===
@@ -31,6 +34,11 @@ class AppRoutes {
   static const String driverTracking = '/driver-tracking';
   static const String endTrip = '/end-trip';
 
+  // === Student/Parent Routes ===
+  static const String studentMainScreen = '/student-main';
+  static const String studentHome = '/student-home';
+  static const String liveTracking = '/live-tracking';
+  static const String studentBusRoute = '/student-bus-route';
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       // === Auth Screens ===
@@ -67,6 +75,30 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => EndTripScreen(stops: stops),
         );
+      // === Student/Parent Screens ===
+      case studentMainScreen:
+        return MaterialPageRoute(builder: (_) => StudentMainScreen());
+      case studentHome:
+        return MaterialPageRoute(
+            builder: (_) => const StudentHomeScreen(
+                  username: 'RJ',
+                ));
+      case liveTracking:
+        final stops = settings.arguments as List<Map<String, dynamic>>? ?? [];
+        final stopNames = stops.map((stop) => stop['name'] as String).toList();
+        return MaterialPageRoute(
+          builder: (_) => LiveBusTrackingScreen(stops: stopNames),
+        );
+      case studentBusRoute:
+        final stops = (settings.arguments as List<Map<String, dynamic>>?) ??
+            [
+              {"name": "Stop 1", "expected": "08:00 AM", "actual": "08:02 AM"},
+              {"name": "Stop 2", "expected": "08:10 AM", "actual": "08:12 AM"},
+              {"name": "Stop 3", "expected": "08:20 AM", "actual": null},
+            ]; // ✅ fallback demo data
+        return MaterialPageRoute(
+          builder: (_) => StudentBusRouteScreen(stops: stops),
+        );
 
       // === Default ===
       default:
@@ -78,5 +110,28 @@ class AppRoutes {
           ),
         );
     }
+  }
+}
+
+class StudentBusRouteScreen extends StatelessWidget {
+  final List<Map<String, dynamic>> stops;
+
+  const StudentBusRouteScreen({Key? key, required this.stops})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Student Bus Route')),
+      body: ListView.builder(
+        itemCount: stops.length,
+        itemBuilder: (context, index) {
+          final stop = stops[index];
+          return ListTile(
+            title: Text(stop['name'] ?? 'Unknown Stop'),
+          );
+        },
+      ),
+    );
   }
 }

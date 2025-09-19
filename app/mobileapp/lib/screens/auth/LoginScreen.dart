@@ -15,8 +15,31 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
 
   void _handleLogin() {
-    print("Login with: ${_emailController.text}, ${_passwordController.text}");
-    Navigator.pushReplacementNamed(context, AppRoutes.driverHome);
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    // ✅ Hardcoded credentials for demo (replace with API later)
+    const driverEmail = "d@school.com";
+    const driverPassword = "123";
+
+    const studentEmail = "s@school.com";
+    const studentPassword = "123";
+
+    if (email == driverEmail && password == driverPassword) {
+      // Redirect to driver dashboard
+      Navigator.pushReplacementNamed(context, AppRoutes.driverHome);
+    } else if (email == studentEmail && password == studentPassword) {
+      // Redirect to student dashboard
+      Navigator.pushReplacementNamed(context, AppRoutes.studentMainScreen);
+    } else {
+      // Invalid credentials
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Invalid email or password ❌"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override

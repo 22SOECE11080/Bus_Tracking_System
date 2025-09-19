@@ -54,7 +54,7 @@ class _DriverTrackingScreenState extends State<DriverTrackingScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: FlutterMap(
-                      options: MapOptions(
+                      options: const MapOptions(
                         initialCenter:
                             LatLng(22.3072, 73.1812), // Example: Vadodara
                         initialZoom: 14,
@@ -68,7 +68,7 @@ class _DriverTrackingScreenState extends State<DriverTrackingScreen> {
                         MarkerLayer(
                           markers: [
                             Marker(
-                              point: LatLng(22.3039, 70.8022),
+                              point: const LatLng(22.3039, 70.8022),
                               width: 120,
                               height: 60,
                               child: Column(
